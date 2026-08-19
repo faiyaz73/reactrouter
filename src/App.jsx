@@ -14,7 +14,8 @@ function App() {
 
   return (
     <>
-   <div className='bg-neutral-primary w-full px-4 sm:px-6 lg:px-8 mx-auto'>
+   <div className='bg-neutral-primary w-full'>
+
      <BrowserRouter>
       <Routes>
         <Route element={<MainLayout/>}>
@@ -30,6 +31,7 @@ function App() {
        
       </Routes>
      </BrowserRouter>
+   
    </div>
    </>
     );

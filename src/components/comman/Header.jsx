@@ -11,8 +11,8 @@ const Header = () => {
     }
     return (
         <>
-        <nav className="bg-neutral-primary  w-full z-20 top-0 start-0 border-b  w-[1100px] mx-auto">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <nav className="bg-[#111827] w-full z-20 top-0 start-0 px-4 sm:px-6 lg:px-8 text-white">
+        <div className="flex flex-wrap items-center justify-between mx-auto p-4">
           <a
             href="https://flowbite.com/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
@@ -22,8 +22,8 @@ const Header = () => {
               className="h-7"
               alt="Flowbite Logo"
             />
-            <span className="self-center text-xl text-heading font-semibold whitespace-nowrap">
-              Flowbite
+            <span className="self-center text-2xl text-heading font-semibold whitespace-nowrap">
+            KadriBazar
             </span>
           </a>
           <button
