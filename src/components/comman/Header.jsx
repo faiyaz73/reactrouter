@@ -11,7 +11,7 @@ const Header = () => {
     }
     return (
         <>
-        <nav className="bg-[#111827] w-full z-20 top-0 start-0 px-4 sm:px-6 lg:px-8 text-white">
+        <nav className="bg-[#111827] z-20 top-0 start-0 px-4 sm:px-6 lg:px-8 text-white">
         <div className="flex flex-wrap items-center justify-between mx-auto p-4">
           <a
             href="https://flowbite.com/"

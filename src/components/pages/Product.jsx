@@ -49,7 +49,7 @@ const StarRating = ({ rating = 0 }) => {
     );
 };
 
-let ProductCart = ({ product }) => {
+export const ProductCart = ({ product }) => {
     let { title, thumbnail, rating, price, reviewerName, reviews, discountPercentage, category, brand,id} =
         product;
     const reviewer = reviewerName || reviews?.[0]?.reviewerName;
