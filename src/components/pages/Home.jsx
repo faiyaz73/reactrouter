@@ -3,7 +3,7 @@ import Header from '../comman/Header';
 const Home = () => {
     return (
         <div className='bg-neutral-secondary'>
-            <div>home page</div>
+            <div>home value data  home</div>
         
         </div>
     );
