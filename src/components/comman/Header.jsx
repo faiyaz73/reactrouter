@@ -5,31 +5,31 @@ import { Link } from 'react-router-dom';
 
 
 const Header = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const IsopenMenu = () => {
-        setIsOpen(prev => !prev)
-    }
-    return (
-        <>
-        <nav className="bg-[#111827] z-20 top-0 start-0 px-4 sm:px-6 lg:px-8 text-white">
+  const [isOpen, setIsOpen] = useState(false);
+  const IsopenMenu = () => {
+    setIsOpen(prev => !prev)
+  }
+  return (
+    <>
+      <nav className="bg-[#1c1915] z-20 top-0 start-0 px-4 sm:px-6 lg:px-8 text-[#fffaf3]">
         <div className="flex flex-wrap items-center justify-between mx-auto p-4">
           <a
             href="https://flowbite.com/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <img
+            {/* <img
               src="https://flowbite.com/docs/images/logo.svg"
               className="h-7"
               alt="Flowbite Logo"
-            />
+            /> */}
             <span className="self-center text-2xl text-heading font-semibold whitespace-nowrap">
-            KadriBazar
+              KadriBazar
             </span>
           </a>
           <button
             data-collapse-toggle="navbar-default"
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base md:hidden hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-[#fffaf3] rounded-base md:hidden hover:bg-white/10 hover:text-[#e8a477] focus:outline-none focus:ring-2 focus:ring-[#e8a477]/50"
             aria-controls="navbar-default"
             aria-expanded="false"
             onClick={IsopenMenu}
@@ -53,45 +53,45 @@ const Header = () => {
             </svg>
           </button>
           <div className={`${isOpen ? "block" : "hidden"} w-full md:block md:w-auto`} id="navbar-default">
-            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-default rounded-base bg-neutral-secondary-soft md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-neutral-primary">
+            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-white/15 rounded-base bg-[#1c1915] md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
               <li>
                 <Link to={'/product'}>
-                  <button className="block py-2 px-3 bg-brand rounded md:bg-transparent md:text-fg-brand md:p-0" aria-current="page">
+                  <button className="block py-2 px-3 rounded text-[#e8a477] hover:bg-white/10 md:bg-transparent md:p-0" aria-current="page">
                     Product
                   </button>
                 </Link>
               </li>
               <li>
                 <Link to='/'>
-                  <button className="block py-2 px-3 bg-brand rounded md:bg-transparent md:text-fg-brand md:p-0" aria-current="page">
+                  <button className="block py-2 px-3 rounded text-[#e8a477] hover:bg-white/10 md:bg-transparent md:p-0" aria-current="page">
                     Home
                   </button>
                 </Link>
               </li>
               <li>
                 <Link to={'/cart'}>
-                  <button className="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">
+                  <button className="block py-2 px-3 text-[#fffaf3] rounded hover:bg-white/10 hover:text-[#e8a477] md:hover:bg-transparent md:border-0 md:p-0">
                     Cart
                   </button>
                 </Link>
               </li>
               <li>
                 <Link to={'/login'}>
-                  <button className="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">
+                  <button className="block py-2 px-3 text-[#fffaf3] rounded hover:bg-white/10 hover:text-[#e8a477] md:hover:bg-transparent md:border-0 md:p-0">
                     Login
                   </button>
                 </Link>
               </li>
               <li>
                 <Link to={'/registor'}>
-                  <button className="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">
+                  <button className="block py-2 px-3 text-[#fffaf3] rounded hover:bg-white/10 hover:text-[#e8a477] md:hover:bg-transparent md:border-0 md:p-0">
                     Registor
                   </button>
-                    </Link>
+                </Link>
               </li>
               <li>
-                <Link to={'/contact'}>    
-                  <button className="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">
+                <Link to={'/contact'}>
+                  <button className="block py-2 px-3 text-[#fffaf3] rounded hover:bg-white/10 hover:text-[#e8a477] md:hover:bg-transparent md:border-0 md:p-0">
                     Contact
                   </button>
                 </Link>
@@ -100,9 +100,9 @@ const Header = () => {
           </div>
         </div>
       </nav>
-      </>
+    </>
 
-    );
+  );
 }
 
 export default Header;

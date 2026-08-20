@@ -57,7 +57,7 @@ const BannerCard = ({ item, className = '' }) => (
 const Home = () => {
     return (
         <>
-            <section className="bg-[#111827]">
+            <section className="bg-[#1c1915] text-[#fffaf3]">
                 <div className="mx-auto grid max-w-screen-xl items-center gap-8 px-4 py-10 sm:px-6 md:py-14 lg:grid-cols-12 lg:gap-12 lg:px-8 lg:py-16">
                     <div className="mr-auto place-self-center lg:col-span-7 lg:order-1">
                         <h1 className="mb-4 max-w-2xl text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl xl:text-6xl">

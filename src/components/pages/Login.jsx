@@ -7,9 +7,9 @@ const Login = () => {
     };
 
     return (
-        <section className="flex min-h-[calc(100vh-80px)] items-center justify-center bg-[#eef1f6] px-4 py-10 sm:px-6 lg:px-8">
+        <section className="flex min-h-[calc(100vh-80px)] items-center justify-center bg-[#1c1915]] px-4 py-10 sm:px-6 lg:px-8">
             <div className="flex w-full max-w-5xl overflow-hidden rounded-2xl bg-white shadow-[0_20px_60px_-20px_rgba(37,99,235,0.35)]">
-                <aside className="relative hidden w-[42%] flex-col items-center justify-between bg-[#4c8dff] px-8 py-12 text-center text-white md:flex">
+                <aside className="relative hidden w-[42%] flex-col items-center justify-between bg-[#1c1915] px-8 py-12 text-center text-white md:flex">
                     <h1 className="text-4xl font-extrabold tracking-wide">K-WD</h1>
 
                     <p className="max-w-xs text-sm leading-relaxed text-white/95">
@@ -82,7 +82,7 @@ const Login = () => {
 
                         <button
                             type="submit"
-                            className="w-full rounded-md bg-[#4c8dff] py-2.5 text-sm font-semibold text-white transition hover:bg-[#3b7af0]"
+                            className="w-full rounded-md bg-[#1c1915] py-2.5 text-sm font-semibold text-white transition hover:bg-[#3b7af0]"
                         >
                             Log in
                         </button>
