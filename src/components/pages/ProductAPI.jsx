@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import Lodding from './Lodding';
 
 export default function ProductAPI() {
     let [categoryData, setCategory] = useState([])
     let [brandData, setbrand] = useState([])
     let [productData, setProductData] = useState([])
+    let [Loadding,setLodding] = useState(false)
 
     //   this is a  cateory data api fetch 
     let getCategory = async()=>{
@@ -23,10 +25,12 @@ export default function ProductAPI() {
 
     
     let getProduct = ()=>{
+        setLodding(true)
         axios.get('https://www.wscubetech.co/ecommerce-api/products.php')
         .then((resdata)=>resdata.data.data)
         .then((finalRes)=>{
             setProductData(finalRes);
+             setLodding(false)
             
         })
     }
@@ -34,7 +38,7 @@ export default function ProductAPI() {
 
     useEffect(()=>{
         getProduct()
-    })
+    },[])
 
 
     useEffect(() => {
@@ -226,8 +230,23 @@ export default function ProductAPI() {
                     <option value="">Rating : Low to High</option> 
                     <option value="">Rating : High to Low</option>
                  </select>
-                </div>  
-                <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-1 gap-2">
+                </div>
+
+                {
+                 Loadding ?   <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-1 gap-2">
+                <Lodding/>
+                <Lodding/>
+                <Lodding/>
+                <Lodding/>
+                <Lodding/>
+                <Lodding/>
+                <Lodding/>
+                <Lodding/>
+                </div> 
+                :
+                 <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-1 gap-2">
+               
+               
                  {
                     productData.map((obj,index)=>{
                         return(
@@ -238,16 +257,14 @@ export default function ProductAPI() {
                  }
                  
                 
-                 {/* <ProductCard/>
-                 <ProductCard/>
-                 <ProductCard/>
-                 <ProductCard/>
-                 <ProductCard/>
-                 <ProductCard/>
-                 <ProductCard/> */}
                  
                 </div>
+                }
+                
+               
+                
                 </div>
+               
 
             </section>
         </>
@@ -259,7 +276,10 @@ export default function ProductAPI() {
 let ProductCard=({product})=>{
     let {name,images,price,description}  = product
       return(
+        <>
+        
         <div className='border-1 border-[#2d2d2d] m-2 rounded-md shadow-md shadow-gray-400/30'>
+            
             <figure>
                 <img className="w-full h-full object-cover" src={product.image}
                  alt="" />
@@ -273,5 +293,6 @@ let ProductCard=({product})=>{
                
             </figure>
         </div>
+        </>
       )
 }
