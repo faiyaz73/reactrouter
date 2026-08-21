@@ -5,3 +5,21 @@ products details https://www.wscubetech.co/ecommerce-api/productdetails.php?id=1
 category :  https://www.wscubetech.co/ecommerce-api/categories.php
  
 brands : https://www.wscubetech.co/ecommerce-api/brands.php
+
+
+
+params: {
+ 
+          page: null,
+          limit: null,
+          sorting: null,
+          price_from: null,
+          price_to: null,
+          discount_from: null,
+          discount_to: null,
+          name: null,
+          rating: null,
+          brands: null,
+          categories: null
+ 
+        }

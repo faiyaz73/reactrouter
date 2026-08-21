@@ -7,6 +7,11 @@ export default function ProductAPI() {
     let [brandData, setbrand] = useState([])
     let [productData, setProductData] = useState([])
     let [Loadding,setLodding] = useState(false)
+    let [sorting,setsorting] = useState('')
+    let [category,setcategory] = useState([])
+    let [brandFilter,setbrandFilter] = useState([])
+
+    console.log(category)
 
     //   this is a  cateory data api fetch 
     let getCategory = async()=>{
@@ -15,6 +20,8 @@ export default function ProductAPI() {
     setCategory(data);
     
     }
+
+
     //   this is a  brand data api fetch 
     let getbrand = async()=>{
     let resdata = await axios.get('https://www.wscubetech.co/ecommerce-api/brands.php')
@@ -22,11 +29,46 @@ export default function ProductAPI() {
     setbrand(data);
    
     }
+  
+
+    let categoryFiler = (e)=>{
+        let value =  e.target.value
+        setcategory(pre=>
+        [...pre,value])
+       
+
+    }
+
+    let brandeHandleFilter = (e)=>{
+        let value =  e.target.value
+        setbrandFilter (pre=>
+        [...pre,value])
+       
+
+    }
 
     
     let getProduct = ()=>{
         setLodding(true)
-        axios.get('https://www.wscubetech.co/ecommerce-api/products.php')
+        axios.get('https://www.wscubetech.co/ecommerce-api/products.php',{
+          
+        //   This is a params provied by backand developer  
+          params: {
+          page: 1,
+          limit: 20,
+          sorting: sorting,
+          price_from: null,
+          price_to: null,
+          discount_from: null,
+          discount_to: null,
+          name: null,
+          rating: null,
+          brands: brandFilter.join(','),
+          categories:category.join(',')
+ 
+        }
+
+        })
         .then((resdata)=>resdata.data.data)
         .then((finalRes)=>{
             setProductData(finalRes);
@@ -35,10 +77,11 @@ export default function ProductAPI() {
         })
     }
     
+    
 
     useEffect(()=>{
         getProduct()
-    },[])
+    },[sorting,category,brandFilter])
 
 
     useEffect(() => {
@@ -48,22 +91,22 @@ export default function ProductAPI() {
 
     return (
         <>
-            <section className="grid lg:grid-cols-[15%_auto] grid-cols-1 gap-5 my-10">
-                <aside className=' shadow-md shadow-red-400/30 ms-4'>
-                    <div className='flex justify-between items-center p-2'>
-                        <h1 className='text-lg font-semibold text-[17px]'>FILTER</h1>
-                        <button className='text-lg font-semibold text-[17px] text-[#FF607A] hover:text-[#d7c4a8]'>
+            <section className="grid lg:grid-cols-[20%_auto] grid-cols-1 gap-5 my-10 items-start ">
+                <aside className='shadow-md shadow-red-400/30 ms-4 p-1'>
+                    <div className='flex justify-between items-center p-3 border-b-2'>
+                        <h1 className='text-lg font-semibold text-[15px]'>FILTER</h1>
+                        <button className='text-lg font-semibold text-[15px] text-[#FF607A] hover:text-[#d7c4a8]'>
                             CLEAR ALL
                         </button>
                     </div>
                     <div className='p-2 h-[230px] overflow-y-auto shadow-md shadow-gray-500/30'>
                         <h1 className='font-semibold text-[15px]'>CATEGORY</h1>
-                        <ul className='flex flex-col gap-2 mt-2'>
+                        <ul className='flex flex-col gap-2 mt-2 text-[13px] '>
                             {
                                 categoryData.map((obj,index)=>{
                                     return(
                                  <li className='flex items-center gap-2' key={index}>
-                                <input type="checkbox" key ={index.id}/>
+                                <input type="checkbox" value={obj.slug} onChange={categoryFiler} key ={index.id}/>
                                  {obj.name}
                               </li>
 
@@ -84,14 +127,16 @@ export default function ProductAPI() {
                     </div>
                     <div className='p-2 h-[230px] overflow-y-auto shadow-md shadow-gray-400/30'>
                         <h1 className='text-lg font-semibold text-[15px]'>BRAND</h1>
-                        <ul className='flex flex-col gap-2 mt-2'>
+                        <ul className='flex flex-col gap-2 mt-2 '>
 
 
                            {
                                 brandData.map((obj,index)=>{
                                     return(
-                                 <li className='flex items-center gap-2' key={index}>
-                                <input type="checkbox" key ={index.id}/>
+                                 <li className='flex items-center gap-2 text-[13px]' key={index}>
+                                <input type="checkbox" 
+                                value={obj.slug}
+                                onChange={brandeHandleFilter} key ={index.id}/>
                                  {obj.name}
                               </li>
 
@@ -99,59 +144,14 @@ export default function ProductAPI() {
                                 })
       
                             }
-                            <li className='flex items-center gap-2'>
-                                <input type="checkbox" id="electronics" />
-                                <label htmlFor="electronics">Groceries</label>
-                            </li>
-                            <li className='flex items-center gap-2'>
-                                <input type="checkbox" id="clothing" />
-                                <label htmlFor="clothing">Furniture</label>
-                            </li>
-                            <li className='flex items-center gap-2'>
-                                <input type="checkbox" id="home" />
-                                <label htmlFor="home">Groceries</label>
-                            </li>
-                            <li className='flex items-center gap-2'>
-                                <input type="checkbox" id="home" />
-                                <label htmlFor="home">Groceries</label>
-                            </li>
-                            <li className='flex items-center gap-2'>
-                                <input type="checkbox" id="home" />
-                                <label htmlFor="home">Groceries</label>
-                            </li>
-                            <li className='flex items-center gap-2'>
-                                <input type="checkbox" id="home" />
-                                <label htmlFor="home">Groceries</label>
-                            </li>
-                            <li className='flex items-center gap-2'>
-                                <input type="checkbox" id="home" />
-                                <label htmlFor="home">Groceries</label>
-                            </li>
-                            <li className='flex items-center gap-2'>
-                                <input type="checkbox" id="home" />
-                                <label htmlFor="home">Groceries</label>
-                            </li>
-                            <li className='flex items-center gap-2'>
-                                <input type="checkbox" id="home" />
-                                <label htmlFor="home">Groceries</label>
-                            </li>
-                            <li className='flex items-center gap-2'>
-                                <input type="checkbox" id="home" />
-                                <label htmlFor="home">Groceries</label>
-                            </li>
-                            <li className='flex items-center gap-2'>
-                                <input type="checkbox" id="home" />
-                                <label htmlFor="home">Groceries</label>
-                            </li>
-                            <li className='flex items-center gap-2'>
-                                <input type="checkbox" id="home" />
-                                <label htmlFor="home">Groceries</label>
-                            </li>
+                            
+                  
+                            
                         </ul>
                     </div>
                     <div className=' p-2 h-[170px] overflow-y-auto shadow-md shadow-gray-400/30'>
                         <h1 className='text-lg font-semibold text-[15px]'>PRICE</h1>
-                        <ul className='flex flex-col gap-2 mt-2'>
+                        <ul className='flex flex-col gap-2 mt-2 text-[15px]'>
                             <li className='flex items-center gap-2'>
                                 <input type="radio" name="price" id="price1" />
                                 <label htmlFor="price1">Rs. 10 to Rs. 250</label>
@@ -174,7 +174,7 @@ export default function ProductAPI() {
                     </div>
                     <div className=' p-2 h-[190px] py-4 t-[-60px] overflow-y-auto shadow-md shadow-gray-400/30'>
                         <h1 className='text-lg font-semibold text-[15px]'>DISCOUNT RANGE</h1>
-                        <ul className='flex flex-col gap-2 mt-2'>
+                        <ul className='flex flex-col gap-2 mt-2 text-[15px]'>
                             <li className='flex items-center gap-2'>
                                 <input type="radio" name="discount" id="discount1" />
                                 <label htmlFor="discount1">5% and above</label>
@@ -196,8 +196,8 @@ export default function ProductAPI() {
                         </ul>
                     </div>
                     <div className='p-2 h-[190px] py-4 overflow-y-auto  shadow-md shadow-gray-400/30'>
-                        <h1 className='text-lg font-semibold text-[15px]    '>RATING</h1>
-                        <ul className='flex flex-col gap-2 mt-2'>
+                        <h1 className='text-lg font-semibold text-[15px]'>RATING</h1>
+                        <ul className='flex flex-col gap-2 mt-2 text-[15px]'>
                             <li className='flex items-center gap-2'>
                                 <input type="radio" name="rating" id="rating1" />
                                 <label htmlFor="rating1">4★ & above</label>
@@ -219,16 +219,16 @@ export default function ProductAPI() {
                 </aside>
                 <div className='shadow-md shadow-red-400/30 me-6'>
                 <div className="flex justify-end">
-                 <select name="" id="" className="border-1 border-[#2d2d2d] rounded-md p-2  m-2">
+                 <select name="" onChange={(e)=>setsorting(e.target.value)} id="" className="border-1 border-[#2d2d2d] rounded-md p-2  m-2">
                     <option value="" className="p-2">Sort by : Recommended</option>
-                    <option value="" className="p-2">Name : A to Z</option>
-                    <option value="">Name : Z to A</option> 
-                    <option value="">Price : Low to High</option> 
-                    <option value="">Price : High to Low</option> 
-                    <option value="">Discounted Price : Low to High</option> 
-                    <option value="">Discounted Price : High to Low</option> 
-                    <option value="">Rating : Low to High</option> 
-                    <option value="">Rating : High to Low</option>
+                    <option value="1" className="p-2">Name : A to Z</option>
+                    <option value="2">Name : Z to A</option> 
+                    <option value="3">Price : Low to High</option> 
+                    <option value="4">Price : High to Low</option> 
+                    <option value="5">Discounted Price : Low to High</option> 
+                    <option value="6">Discounted Price : High to Low</option> 
+                    <option value="7">Rating : Low to High</option> 
+                    <option value="8">Rating : High to Low</option>
                  </select>
                 </div>
 
