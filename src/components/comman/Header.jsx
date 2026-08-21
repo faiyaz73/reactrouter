@@ -55,6 +55,13 @@ const Header = () => {
           <div className={`${isOpen ? "block" : "hidden"} w-full md:block md:w-auto`} id="navbar-default">
             <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-white/15 rounded-base bg-[#1c1915] md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
               <li>
+                <Link to={'/product-api'}>
+                  <button className="block py-2 px-3 rounded text-[#e8a477] hover:bg-white/10 md:bg-transparent md:p-0" aria-current="page">
+                    Product API
+                  </button>
+                </Link>
+              </li>
+              <li>
                 <Link to={'/product'}>
                   <button className="block py-2 px-3 rounded text-[#e8a477] hover:bg-white/10 md:bg-transparent md:p-0" aria-current="page">
                     Product

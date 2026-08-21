@@ -1,12 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { datalist } from '../../data/datavalue';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 
 const Product = () => {
+    let [count,setcount] = useState(0)
+//    function filter 
+    let getproducts = ()=>{
+        console.log("product item");
+        
+    }
+
+    let getcategory =()=>{
+        console.log("category");
+        
+    }
+    
+    let getbrands = ()=>{
+        console.log("brands")
+    
+    }
+     
+
+ useEffect(() => {
+    getproducts();
+    getcategory();
+    getbrands();    
+  }, []);
+
+
     return (
         <section className="relative overflow-hidden bg-[#f6f1e8] px-4 py-12 sm:px-6 lg:px-8">
+            <h1>{count}</h1>
+            <button onClick={()=>setcount(count+1)}>click</button>   
             <div className="pointer-events-none absolute -left-24 top-10 h-64 w-64 rounded-full bg-[#e8c9a0]/40 blur-3xl" />
             <div className="pointer-events-none absolute -right-16 bottom-10 h-72 w-72 rounded-full bg-[#c45c26]/10 blur-3xl" />
 
@@ -25,7 +52,7 @@ const Product = () => {
 
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     {datalist.map((Object, index) => {
-                        return <ProductCart product={Object} key={index.id} />;
+                        return <ProductCart product={Object} keys = {index} key={index.id} />;
                     })}
                 </div>
             </div>
@@ -48,6 +75,11 @@ const StarRating = ({ rating = 0 }) => {
         </div>
     );
 };
+
+
+
+// cart components
+
 
 export const ProductCart = ({ product }) => {
     let { title, thumbnail, rating, price, reviewerName, reviews, discountPercentage, category, brand,id} =
