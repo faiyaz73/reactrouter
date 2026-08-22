@@ -10,6 +10,11 @@ export default function ProductAPI() {
     let [sorting,setsorting] = useState('')
     let [category,setcategory] = useState([])
     let [brandFilter,setbrandFilter] = useState([])
+    let [priceFilter, setpriceFilter] = useState({
+    from: '',
+    to: ''
+})
+    let [discountFilter, setdiscountFilter] = useState('')
 
     console.log(category)
 
@@ -30,23 +35,72 @@ export default function ProductAPI() {
    
     }
   
+//  Category filter 
 
     let categoryFiler = (e)=>{
         let value =  e.target.value
-        setcategory(pre=>
-        [...pre,value])
-       
-
+        let checked = e.target.checked;
+        if(checked){
+         setcategory(pre => [...pre, value]);
+        }
+        else{
+          setcategory(pre => pre.filter(item => item !== value));
+        } 
     }
+
+
+    // Brand filter 
 
     let brandeHandleFilter = (e)=>{
         let value =  e.target.value
-        setbrandFilter (pre=>
-        [...pre,value])
-       
+       let checked = e.target.checked;
+        if(checked){
+            setbrandFilter (pre=> [...pre,value])
+        }else{
+            setbrandFilter(pre => pre.filter(item => item !== value));
+        }
+    } 
 
+    // price filter 
+
+   let PriceHandleFilter = (e) => {
+    let value = e.target.value;
+
+    if (value === '1') {
+        setpriceFilter({
+            from: 10,
+            to: 250
+        })
     }
 
+    if (value === '2') {
+        setpriceFilter({
+            from: 250,
+            to: 500
+        })
+    }
+
+    if (value === '3') {
+        setpriceFilter({
+            from: 500,
+            to: 1000
+        })
+    }
+
+    if (value === '4') {
+        setpriceFilter({
+            from: 1000,
+            to: ''
+        })
+    }
+}
+   
+    //   Discoun filter 
+
+    let DiscountHandleFilter = (e) => {
+    let value = e.target.value;
+    setdiscountFilter(value);
+    }
     
     let getProduct = ()=>{
         setLodding(true)
@@ -55,12 +109,12 @@ export default function ProductAPI() {
         //   This is a params provied by backand developer  
           params: {
           page: 1,
-          limit: 20,
+          limit: 50,
           sorting: sorting,
-          price_from: null,
-          price_to: null,
-          discount_from: null,
-          discount_to: null,
+          price_from:priceFilter.from,
+          price_to:priceFilter.to,
+          discount_from: discountFilter,
+          discount_to: '',
           name: null,
           rating: null,
           brands: brandFilter.join(','),
@@ -81,7 +135,7 @@ export default function ProductAPI() {
 
     useEffect(()=>{
         getProduct()
-    },[sorting,category,brandFilter])
+    },[sorting,category,brandFilter,priceFilter])
 
 
     useEffect(() => {
@@ -153,19 +207,42 @@ export default function ProductAPI() {
                         <h1 className='text-lg font-semibold text-[15px]'>PRICE</h1>
                         <ul className='flex flex-col gap-2 mt-2 text-[15px]'>
                             <li className='flex items-center gap-2'>
-                                <input type="radio" name="price" id="price1" />
+                                <input 
+                                  type="radio" 
+                                  name="price" 
+                                  value="1"
+                                  onChange={PriceHandleFilter}
+                                  id="price1" />
                                 <label htmlFor="price1">Rs. 10 to Rs. 250</label>
                             </li>
                             <li className='flex items-center gap-2'>
-                                <input type="radio" name="price" id="price2" />
+                                <input 
+                                type="radio" 
+                                  name="price" 
+                                  value="2"
+                                  onChange={PriceHandleFilter}
+                                  id="price2"
+                                   />
                                 <label htmlFor="price2 ">Rs. 250 to Rs. 500</label>
                             </li>
                             <li className='flex items-center gap-2'>
-                                <input type="radio" name="price" id="price3" />
+                                <input 
+                                 type="radio" 
+                                  name="price" 
+                                  value="3"
+                                  onChange={PriceHandleFilter}
+                                  id="price3"
+                                    />
                                 <label htmlFor="price3">Rs. 500 to Rs. 1000</label>
                             </li>
                             <li className='flex items-center gap-2'>
-                                <input type="radio" name="price" id="price4" />
+                                <input 
+                                 type="radio" 
+                                  name="price" 
+                                  value="4"
+                                  onChange={PriceHandleFilter}
+                                  id="price4"
+                                   />
                                 <label htmlFor="price4">Rs. 1000 and above </label>
                             </li>
 
@@ -176,19 +253,39 @@ export default function ProductAPI() {
                         <h1 className='text-lg font-semibold text-[15px]'>DISCOUNT RANGE</h1>
                         <ul className='flex flex-col gap-2 mt-2 text-[15px]'>
                             <li className='flex items-center gap-2'>
-                                <input type="radio" name="discount" id="discount1" />
+                                <input 
+                                 type="radio"
+                                 name="discount"
+                                 value="5"
+                                 onChange={DiscountHandleFilter}
+                                 id="discount1" />
                                 <label htmlFor="discount1">5% and above</label>
                             </li>
                             <li className='flex items-center gap-2'>
-                                <input type="radio" name="discount" id="discount2" />
+                                <input 
+                                 type="radio"
+                                 name="discount"
+                                 value="10"
+                                 onChange={DiscountHandleFilter}
+                                id="discount2" />
                                 <label htmlFor="discount2 ">10% and above</label>
                             </li>
                             <li className='flex items-center gap-2'>
-                                <input type="radio" name="discount" id="discount3" />
+                                <input 
+                                type="radio"
+                                name="discount"
+                                value="15"
+                                onChange={DiscountHandleFilter}
+                                id="discount3" />
                                 <label htmlFor="discount3">15% and above</label>
                             </li>
                             <li className='flex items-center gap-2'>
-                                <input type="radio" name="discount" id="discount4" />
+                                <input 
+                                 type="radio"
+                                 name="discount"
+                                 value="20"
+                                 onChange={DiscountHandleFilter}
+                                id="discount4" />
                                 <label htmlFor="discount4">20% and above </label>
                             </li>
 
@@ -274,7 +371,7 @@ export default function ProductAPI() {
 
 
 let ProductCard=({product})=>{
-    let {name,images,price,description}  = product
+    let {name,images,price,description,rating,discount_percentage}  = product
       return(
         <>
         
@@ -287,7 +384,12 @@ let ProductCard=({product})=>{
                 <h2 className='font-bold'>{product.name}</h2>
                 <p className='first-letter:uppercase'>{product.description}</p>
                 
-                 <p className="font-bold pt-3">{product.price}<span className='font-normal text-[12px] text-gray-600'> Rs. 350 (5)</span> </p>
+                 <p className="font-bold pt-3">{product.price}<span className='font-normal text-[12px] text-gray-600'> Rs. 350 (5) </span>  <span className="ml-2 inline-flex items-center gap-1   px-1.5 py-0.5 rounded">
+    ⭐           {rating}</span></p>
+                  <p className="font-bold pt-3 text-[12px] text-gray-600">Discount : {product.discount_percentage}</p>
+                  
+                  
+
                 <button className="bg-amber-300 w-full mt-4 font-bold p-1">Add to Cart</button>
                 </div>
                
