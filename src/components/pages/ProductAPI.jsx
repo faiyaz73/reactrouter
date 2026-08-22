@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Lodding from './Lodding';
+import ResponsivePagination from 'react-responsive-pagination';
+import 'react-responsive-pagination/themes/classic-light-dark.css';
 
 export default function ProductAPI() {
     let [categoryData, setCategory] = useState([])
@@ -15,8 +17,11 @@ export default function ProductAPI() {
     to: ''
 })
     let [discountFilter, setdiscountFilter] = useState('')
+      const [currentPage, setCurrentPage] = useState(1);
+      const [totalPages,setTotalpage] = useState('');
+      const [limit,setlimit] = useState('')
 
-    console.log(category)
+   
 
     //   this is a  cateory data api fetch 
     let getCategory = async()=>{
@@ -40,6 +45,7 @@ export default function ProductAPI() {
     let categoryFiler = (e)=>{
         let value =  e.target.value
         let checked = e.target.checked;
+        setCurrentPage(1)
         if(checked){
          setcategory(pre => [...pre, value]);
         }
@@ -54,6 +60,7 @@ export default function ProductAPI() {
     let brandeHandleFilter = (e)=>{
         let value =  e.target.value
        let checked = e.target.checked;
+       setCurrentPage(1)
         if(checked){
             setbrandFilter (pre=> [...pre,value])
         }else{
@@ -65,6 +72,7 @@ export default function ProductAPI() {
 
    let PriceHandleFilter = (e) => {
     let value = e.target.value;
+    setCurrentPage(1)
 
     if (value === '1') {
         setpriceFilter({
@@ -99,43 +107,43 @@ export default function ProductAPI() {
 
     let DiscountHandleFilter = (e) => {
     let value = e.target.value;
+    setCurrentPage(1)
     setdiscountFilter(value);
     }
     
     let getProduct = ()=>{
         setLodding(true)
-        axios.get('https://www.wscubetech.co/ecommerce-api/products.php',{
-          
-        //   This is a params provied by backand developer  
-          params: {
-          page: 1,
-          limit: 50,
-          sorting: sorting,
-          price_from:priceFilter.from,
-          price_to:priceFilter.to,
-          discount_from: discountFilter,
-          discount_to: '',
-          name: null,
-          rating: null,
-          brands: brandFilter.join(','),
-          categories:category.join(',')
- 
-        }
-
-        })
-        .then((resdata)=>resdata.data.data)
-        .then((finalRes)=>{
-            setProductData(finalRes);
-             setLodding(false)
-            
-        })
+        axios.get('https://www.wscubetech.co/ecommerce-api/products.php', {
+    params: {
+        page:currentPage,
+        // limit:8,
+        sorting: sorting,
+        price_from: priceFilter.from,
+        price_to: priceFilter.to,
+        discount_from: discountFilter,
+        discount_to: '',
+        name: null,
+        rating: null,
+        brands: brandFilter.join(','),
+        categories: category.join(',')
+    }
+    })
+   .then((resdata) => {
+    console.log("FULL API RESPONSE:", resdata.data);
+    setProductData(resdata.data.data);
+    setTotalpage(resdata.data.total_pages);
+    setlimit(resdata.data.limit);
+    setLodding(false);
+   
+    
+    });   
     }
     
     
 
     useEffect(()=>{
         getProduct()
-    },[sorting,category,brandFilter,priceFilter])
+    },[sorting,category,brandFilter,priceFilter,currentPage,discountFilter])
 
 
     useEffect(() => {
@@ -314,7 +322,7 @@ export default function ProductAPI() {
                         </ul>
                     </div>
                 </aside>
-                <div className='shadow-md shadow-red-400/30 me-6'>
+                <div className='shadow-md shadow-red-400/30 me-6 pb-5'>
                 <div className="flex justify-end">
                  <select name="" onChange={(e)=>setsorting(e.target.value)} id="" className="border-1 border-[#2d2d2d] rounded-md p-2  m-2">
                     <option value="" className="p-2">Sort by : Recommended</option>
@@ -341,7 +349,7 @@ export default function ProductAPI() {
                 <Lodding/>
                 </div> 
                 :
-                 <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-1 gap-2">
+                 <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-1 gap-2 pb-3">
                
                
                  {
@@ -358,7 +366,11 @@ export default function ProductAPI() {
                 </div>
                 }
                 
-               
+                <ResponsivePagination
+                 current={currentPage}
+                 total={totalPages}
+                 onPageChange={setCurrentPage}
+                />
                 
                 </div>
                
