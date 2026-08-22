@@ -8,22 +8,22 @@ const Product = () => {
     let [count,setcount] = useState(0)
 //    function filter 
     let getproducts = ()=>{
-        console.log("product item");
+
         
     }
 
     let getcategory =()=>{
-        console.log("category");
+       
         
     }
     
     let getbrands = ()=>{
-        console.log("brands")
+       
     
     }
      
 
- useEffect(() => {
+    useEffect(() => {
     getproducts();
     getcategory();
     getbrands();    

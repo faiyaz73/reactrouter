@@ -151,6 +151,8 @@ export default function ProductAPI() {
         getbrand()
     }, [])
 
+   
+
     return (
         <>
             <section className="grid lg:grid-cols-[20%_auto] grid-cols-1 gap-5 my-10 items-start ">
@@ -383,7 +385,25 @@ export default function ProductAPI() {
 
 
 let ProductCard=({product})=>{
-    let {name,images,price,description,rating,discount_percentage}  = product
+
+     
+
+    let {name,image,price,description,rating,discount_percentage,id,qty}  = product
+
+      let addtocart = ()=>{
+        let carddata = {
+            "id":id,
+            "name":name,
+            "price":price,
+            "images":image,
+            "description":description,
+            "rating":rating,
+            "discount_percentage":discount_percentage,
+            qty:1
+        }
+        console.log("cart data colect : ",carddata)
+    
+   } 
       return(
         <>
         
@@ -402,7 +422,9 @@ let ProductCard=({product})=>{
                   
                   
 
-                <button className="bg-amber-300 w-full mt-4 font-bold p-1">Add to Cart</button>
+                <button className="bg-amber-300 w-full mt-4 font-bold p-1 hover:cursor-pointer hover:bg-amber-600"
+                onClick={addtocart}
+                >Add to Cart</button>
                 </div>
                
             </figure>
